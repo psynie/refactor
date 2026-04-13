@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uptalk — Expert Marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+
+:root{
+  --bg:#ffffff;
+  --bg-warm:#f7f6f3;
+  --bg-warm2:#efede8;
+  --text:#1a1917;
+  --text2:#6b6860;
+  --text3:#a39e98;
+  --border:rgba(0,0,0,0.08);
+  --border-strong:rgba(0,0,0,0.15);
+  --accent:#d5441c;
+  --accent-bg:rgba(213,68,28,0.07);
+  --blue:#0075de;
+  --blue-bg:#f0f7ff;
+  --green:#1a9a4a;
+  --green-bg:#f0faf4;
+  --font-display:'Playfair Display',serif;
+  --font-body:'Inter',sans-serif;
+  --r:8px;
+  --r-lg:14px;
+  --r-xl:20px;
+  --shadow:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.04);
+  --shadow-hover:0 2px 8px rgba(0,0,0,0.06),0 8px 32px rgba(0,0,0,0.08);
+}
+
+body{font-family:var(--font-body);color:var(--text);background:var(--bg);overflow-x:hidden;line-height:1.6}
+img{display:block;max-width:100%}
+button,input,select{font:inherit}
+a{color:inherit;text-decoration:none}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:99px}
+
+/* ── UTILS ── */
+.container{width:min(1160px,calc(100% - 40px));margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:500;letter-spacing:0.01em}
+.chip-gray{background:var(--bg-warm2);color:var(--text2)}
+.chip-blue{background:var(--blue-bg);color:var(--blue)}
+.chip-green{background:var(--green-bg);color:var(--green)}
+.chip-accent{background:var(--accent-bg);color:var(--accent)}
+.chip-dot::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:var(--r);font-size:14px;font-weight:500;border:1px solid transparent;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-primary:hover{background:#2a2925;box-shadow:0 4px 12px rgba(0,0,0,0.18)}
+.btn-ghost{background:transparent;color:var(--text2);border-color:var(--border-strong)}
+.btn-ghost:hover{background:var(--bg-warm);color:var(--text)}
+.btn-accent{background:var(--accent);color:white;border-color:var(--accent)}
+.btn-accent:hover{background:#be3c17;box-shadow:0 4px 14px rgba(213,68,28,0.3)}
+.btn-sm{padding:7px 14px;font-size:13px}
+.btn-lg{padding:12px 24px;font-size:15px}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:900;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;gap:15px}
+.nav-logo{display:flex;align-items:center;cursor:pointer;border:none;background:none;padding:0}
+.nav-logo img{height:36px;width:auto;max-height:36px}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{padding:7px 13px;border-radius:var(--r);font-size:14px;color:var(--text2);background:none;border:none;cursor:pointer;transition:all 0.15s}
+.nav-link:hover,.nav-link.active{background:var(--bg-warm);color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:6px}
+.hamburger span{width:20px;height:1.5px;background:var(--text);border-radius:99px;transition:all 0.2s}
+
+/* ── PAGES ── */
+.page{display:none}
+.page.active{display:block}
+.profile-page{display:none}
+.profile-page.active{display:block}
+
+/* ── HERO ── */
+.hero{padding:88px 0 72px;border-bottom:1px solid var(--border)}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.hero-label{font-size:12px;font-weight:500;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px}
+.hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,3.8rem);line-height:1.1;letter-spacing:-0.02em;margin-bottom:20px;color:var(--text)}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:clamp(14px,3vw,16px);color:var(--text2);max-width:440px;line-height:1.65;margin-bottom:32px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.hero-proof{display:flex;gap:20px;flex-wrap:wrap}
+.proof-item{font-size:13px;color:var(--text3);display:flex;align-items:center;gap:7px}
+.proof-item::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--text3)}
+
+/* Hero Visual — Dashboard Preview */
+.hero-visual{position:relative}
+.dash-preview{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-hover)}
+.dash-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.dash-dots{display:flex;gap:5px}
+.dash-dot{width:8px;height:8px;border-radius:50%;background:var(--border-strong)}
+.dash-title{font-size:12px;color:var(--text3);margin-left:4px}
+.dash-body{padding:18px;display:grid;gap:10px}
+.dash-offer-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);transition:all 0.15s}
+.dash-offer-row:hover{border-color:var(--border-strong);background:var(--bg)}
+.dash-offer-name{font-size:13px;font-weight:500;color:var(--text)}
+.dash-offer-type{font-size:11px;color:var(--text3)}
+.dash-offer-price{font-size:14px;font-weight:600;color:var(--text);font-family:var(--font-display)}
+.dash-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dash-stat{padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r)}
+.dash-stat strong{display:block;font-family:var(--font-display);font-size:1.5rem;letter-spacing:-0.03em;color:var(--text)}
+.dash-stat span{font-size:11px;color:var(--text3)}
+
+/* ── WHY SECTION ── */
+.why-section{padding:72px 0;border-bottom:1px solid var(--border);background:linear-gradient(180deg, #f9f9f7 0%, #ffffff 100%)}
+.section-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px}
+.section-title{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.8rem);line-height:1.15;letter-spacing:-0.02em;color:var(--text);margin-bottom:12px}
+.section-sub{font-size:15px;color:var(--text2);max-width:480px;line-height:1.65}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-top:40px}
+.why-card{background:var(--bg);padding:28px;transition:background 0.15s}
+.why-card:hover{background:var(--bg-warm)}
+.why-icon{width:48px;height:48px;border-radius:var(--r);background:transparent;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:16px;animation:float 3s ease-in-out infinite}
+.why-icon svg{width:100%;height:100%;object-fit:contain}
+.why-card:nth-child(1) .why-icon{animation:float 3s ease-in-out infinite}
+.why-card:nth-child(2) .why-icon{animation:pulse 2.5s ease-in-out infinite 0.2s}
+.why-card:nth-child(3) .why-icon{animation:float 3.5s ease-in-out infinite 0.4s}
+.why-card:nth-child(4) .why-icon{animation:pulse 2.5s ease-in-out infinite 0.6s}
+.why-card:nth-child(5) .why-icon{animation:float 3s ease-in-out infinite 0.8s}
+.why-card:nth-child(6) .why-icon{animation:pulse 2.5s ease-in-out infinite 1s}
+@keyframes float{0%,100%{transform:translateY(0px)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:0.9}}
+.why-card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:7px}
+.why-card p{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* ── HOW IT WORKS ── interactive stepper ── */
+.how-section{padding:72px 0;border-bottom:1px solid var(--border);background:linear-gradient(180deg, rgba(0,117,222,0.02) 0%, #ffffff 100%);}
+.how-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:48px}
+.step-list{display:flex;flex-direction:column;gap:4px}
+.step-item{padding:16px 18px;border-radius:var(--r-lg);border:1px solid transparent;cursor:pointer;transition:all 0.2s;position:relative;margin-left:0}
+.step-item::before{content:"";position:absolute;left:9px;top:100%;width:2px;height:16px;background:var(--accent);transition:opacity 0.3s;opacity:0;border-radius:99px}
+.step-item:last-child::before{display:none}
+.step-item.active::before{opacity:1}
+.step-num{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:0.06em;margin-bottom:4px}
+.step-item h3{font-size:15px;font-weight:500;color:var(--text);margin-bottom:0;transition:color 0.15s}
+.step-item.active h3{font-weight:600}
+.step-item p{font-size:13px;color:var(--text2);line-height:1.6;margin-top:6px;display:none}
+.step-item.active p{display:block}
+.step-visual{position:sticky;top:80px}
+.step-card{padding:28px;background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-xl);min-height:300px;display:none;animation:fadeUp 0.3s ease}
+.step-card.active{display:flex;flex-direction:column;gap:16px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-card-icon{width:48px;height:48px;border-radius:var(--r-lg);background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px}
+.step-card h4{font-family:var(--font-display);font-size:1.4rem;letter-spacing:-0.01em;color:var(--text)}
+.step-card p{font-size:14px;color:var(--text2);line-height:1.65}
+.step-visual-detail{margin-top:auto}
+.step-tag-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+
+/* ── CREATORS GRID ── */
+.creators-section{padding:72px 0;border-bottom:1px solid var(--border)}
+.creators-controls{display:flex;align-items:center;gap:10px;margin-top:32px;margin-bottom:24px;flex-wrap:wrap}
+.search-shell{display:flex;align-items:center;gap:10px;padding:0 14px;height:38px;border-radius:var(--r);background:var(--bg);border:1px solid var(--border);min-width:200px;flex:1;max-width:280px}
+.search-shell svg{color:var(--text3);flex-shrink:0}
+.search-input{border:none;outline:none;background:transparent;font-size:13px;color:var(--text);width:100%}
+.search-input::placeholder{color:var(--text3)}
+.cat-pills{display:flex;gap:6px;flex-wrap:wrap}
+.cat-pill{padding:6px 13px;border-radius:99px;border:1px solid var(--border);background:var(--bg);color:var(--text2);font-size:13px;cursor:pointer;transition:all 0.15s}
+.cat-pill:hover,.cat-pill.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.creators-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.creator-card{background:var(--bg);padding:22px;cursor:pointer;transition:all 0.2s}
+.creator-card:hover{background:var(--bg-warm)}
+.cc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.cc-avatar{width:48px;height:48px;border-radius:14px;object-fit:cover;border:1px solid var(--border)}
+.cc-rating{font-size:12px;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:3px}
+.cc-rating::before{content:"★";color:#f59e0b}
+.cc-name{font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px}
+.cc-role{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:10px}
+.cc-bio{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.cc-tag{padding:3px 8px;border-radius:99px;background:var(--bg-warm2);color:var(--text2);font-size:11px}
+.cc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border)}
+.cc-price{font-size:14px;font-weight:600;color:var(--text);font-family:var(--font-display)}
+.cc-price-label{font-size:11px;color:var(--text3);display:block}
+.results-count{font-size:13px;color:var(--text3);margin-bottom:16px}
+
+/* ── FEATURES — expandable cards ── */
+.features-section{padding:72px 0;border-bottom:1px solid var(--border);background:linear-gradient(180deg, #fffbf7 0%, #ffffff 100%);}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.feat-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;cursor:pointer;transition:all 0.2s;overflow:hidden}
+.feat-card:hover{background:var(--bg-warm2);border-color:var(--border-strong)}
+.feat-card.open{background:var(--bg);border-color:var(--border-strong);box-shadow:var(--shadow)}
+.feat-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.feat-card-icon{width:45px;height:45px;border-radius:var(--r);background:linear-gradient(135deg, var(--blue) 0%, #0075de 100%);border:none;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;font-weight:700;color:white}
+.feat-card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.feat-card-sub{font-size:12px;color:var(--text3)}
+.feat-toggle{width:22px;height:22px;border-radius:99px;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text2);flex-shrink:0;transition:all 0.2s;margin-top:2px}
+.feat-card.open .feat-toggle{background:var(--text);color:var(--bg);border-color:var(--text);transform:rotate(45deg)}
+.feat-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s ease;padding-top:0}
+.feat-card.open .feat-body{max-height:300px;padding-top:16px}
+.feat-body p{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:12px}
+.feat-list{display:flex;flex-direction:column;gap:7px}
+.feat-list li{font-size:13px;color:var(--text2);padding-left:16px;position:relative;list-style:none}
+.feat-list li::before{content:"→";position:absolute;left:0;color:var(--text3);font-size:11px;top:1px}
+
+/* ── SPOTLIGHT (real experts) ── */
+.spotlight-section{padding:72px 0;border-bottom:1px solid var(--border);background:var(--bg-warm)}
+.spotlight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.spot-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-xl);padding:22px;cursor:pointer;transition:all 0.2s}
+.spot-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px);border-color:var(--border-strong)}
+.spot-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.spot-avatar{width:52px;height:52px;border-radius:16px;object-fit:cover;border:1px solid var(--border)}
+.spot-name{font-size:15px;font-weight:600;color:var(--text)}
+.spot-role{font-size:12px;color:var(--text2)}
+.spot-bio{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px}
+.spot-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.spot-footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border)}
+.spot-price{font-family:var(--font-display);font-size:1.2rem;letter-spacing:-0.02em;color:var(--text)}
+.spot-price-label{font-size:11px;color:var(--text3)}
+
+/* ── CALCULATOR ── */
+.calc-section{padding:72px 0;border-bottom:1px solid var(--border)}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;margin-top:48px}
+.calc-panel{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-xl);padding:28px}
+.calc-label{font-size:12px;font-weight:600;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px}
+.calc-val{font-family:var(--font-display);font-size:2rem;letter-spacing:-0.03em;color:var(--text);margin-bottom:16px}
+.range{width:100%;height:4px;border-radius:99px;appearance:none;background:var(--bg-warm2);outline:none;cursor:pointer;margin-bottom:8px}
+.range::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.12);cursor:pointer}
+.range::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--text);cursor:pointer}
+.calc-hint{font-size:12px;color:var(--text3)}
+.calc-divider{height:1px;background:var(--border);margin:20px 0}
+.result-row{display:flex;flex-direction:column;gap:4px}
+.result-number{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.04em;color:var(--text)}
+.result-label{font-size:13px;color:var(--text2)}
+.result-sub{font-size:12px;color:var(--text3)}
+.calc-note{margin-top:20px;padding:14px;background:var(--bg);border-radius:var(--r);border-left:2px solid var(--accent);font-size:13px;color:var(--text2)}
+
+/* ── STATS BAR ── */
+.stats-section{padding:52px 0;border-bottom:1px solid var(--border)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.stat-item{background:var(--bg);padding:28px 24px}
+.stat-item strong{font-family:var(--font-display);font-size:2rem;letter-spacing:-0.04em;display:block;margin-bottom:4px;color:var(--text)}
+.stat-item p{font-size:13px;color:var(--text2);line-height:1.5}
+
+/* ── PROFILE PAGE ── */
+.profile-back-bar{padding:20px 0;border-bottom:1px solid var(--border)}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg);color:var(--text2);font-size:13px;cursor:pointer;transition:all 0.15s}
+.back-btn:hover{background:var(--bg-warm);color:var(--text)}
+.profile-header{padding:36px 0 0}
+.profile-header-inner{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:start;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.profile-avatar{width:88px;height:88px;border-radius:22px;object-fit:cover;border:1px solid var(--border)}
+.profile-name{font-family:var(--font-display);font-size:1.9rem;letter-spacing:-0.02em;margin-bottom:4px}
+.profile-role{color:var(--accent);font-size:14px;font-weight:500;margin-bottom:12px}
+.profile-bio-short{font-size:14px;color:var(--text2);max-width:540px;line-height:1.65;margin-bottom:16px}
+.profile-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.profile-tag{padding:4px 10px;border-radius:99px;background:var(--bg-warm2);color:var(--text2);font-size:12px}
+.profile-metrics{display:flex;gap:24px;flex-wrap:wrap}
+.pmetric strong{font-family:var(--font-display);font-size:1.3rem;letter-spacing:-0.03em;display:block}
+.pmetric span{font-size:11px;color:var(--text3)}
+.profile-cta{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.profile-price{text-align:right;margin-bottom:4px}
+.profile-price strong{font-family:var(--font-display);font-size:1.7rem;letter-spacing:-0.03em;display:block}
+.profile-price span{font-size:11px;color:var(--text3)}
+
+/* Profile tabs */
+.ptabs{display:flex;gap:2px;padding:5px;background:var(--bg-warm);border-radius:var(--r-lg);border:1px solid var(--border);width:max-content;margin-bottom:28px}
+.ptab-btn{padding:8px 18px;border-radius:var(--r);border:none;background:transparent;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s}
+.ptab-btn:hover{color:var(--text)}
+.ptab-btn.active{background:var(--bg);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.ptab-pane{display:none;padding-bottom:60px;animation:fadeUp 0.3s ease}
+.ptab-pane.active{display:block}
+
+/* Services */
+.svc-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.svc-filter-btn{padding:6px 14px;border-radius:99px;border:1px solid var(--border);background:var(--bg);color:var(--text2);font-size:12px;cursor:pointer;transition:all 0.15s}
+.svc-filter-btn.active,.svc-filter-btn:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;position:relative;transition:all 0.2s}
+.svc-card:hover{box-shadow:var(--shadow);border-color:var(--border-strong)}
+.svc-type-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:500;margin-bottom:12px}
+.svc-type-badge.live{background:var(--green-bg);color:var(--green)}
+.svc-type-badge.recorded{background:var(--blue-bg);color:var(--blue)}
+.svc-type-badge.digital{background:#f5f0ff;color:#6d28d9}
+.svc-type-badge.group{background:#fffbeb;color:#b45309}
+.svc-type-badge.async{background:var(--accent-bg);color:var(--accent)}
+.svc-icon-wrap{width:42px;height:42px;border-radius:var(--r);background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+.svc-card h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px}
+.svc-card p{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px}
+.svc-details{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.svc-detail{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:7px}
+.svc-detail::before{content:"✓";font-size:10px;color:var(--green)}
+.svc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border)}
+.svc-price strong{font-family:var(--font-display);font-size:1.2rem;letter-spacing:-0.02em}
+.svc-price span{font-size:11px;color:var(--text3);display:block}
+.svc-rating{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px}
+.svc-rating::before{content:"★";color:#f59e0b}
+.popular-badge{position:absolute;top:14px;right:14px;padding:3px 8px;border-radius:99px;background:var(--accent);color:white;font-size:10px;font-weight:600}
+
+/* Overview */
+.overview-grid{display:grid;grid-template-columns:1fr 340px;gap:20px}
+.overview-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;margin-bottom:14px}
+.overview-card h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.exp-tags{display:flex;flex-wrap:wrap;gap:7px}
+.exp-tag{padding:6px 12px;border-radius:99px;background:var(--bg);border:1px solid var(--border);color:var(--text2);font-size:13px}
+.ach-list{display:flex;flex-direction:column;gap:10px}
+.ach-item{display:flex;gap:12px;align-items:flex-start}
+.ach-icon{width:34px;height:34px;border-radius:var(--r);background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ach-item strong{font-size:13px;display:block;margin-bottom:2px}
+.ach-item span{font-size:12px;color:var(--text3)}
+.client-logos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.client-logo{padding:10px;border-radius:var(--r);background:var(--bg);border:1px solid var(--border);text-align:center;font-size:12px;font-weight:600;color:var(--text2)}
+.lang-pills{display:flex;gap:7px;flex-wrap:wrap}
+.lang-pill{padding:5px 12px;border-radius:99px;background:var(--bg);border:1px solid var(--border);font-size:13px;color:var(--text2)}
+.avail-list{display:flex;flex-direction:column;gap:6px}
+.avail-row{display:flex;justify-content:space-between;padding:9px 12px;border-radius:var(--r);background:var(--bg);font-size:13px}
+.avail-row span:first-child{font-weight:500}
+.avail-row span:last-child{color:var(--text3)}
+.response-time{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:8px;max-width:720px}
+.faq-item{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--bg);transition:border-color 0.15s}
+.faq-item:hover{border-color:var(--border-strong)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;gap:16px}
+.faq-q strong{font-size:14px;font-weight:500;color:var(--text)}
+.faq-toggle{width:24px;height:24px;border-radius:99px;border:1px solid var(--border);background:var(--bg-warm);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text2);flex-shrink:0;transition:all 0.2s}
+.faq-item.open .faq-toggle{background:var(--text);color:var(--bg);border-color:var(--text);transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{padding:0 20px 16px;font-size:13px;color:var(--text2);line-height:1.65}
+
+/* Reviews */
+.reviews-layout{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start}
+.rev-summary{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;text-align:center}
+.rev-big{font-family:var(--font-display);font-size:3rem;letter-spacing:-0.04em;color:var(--text)}
+.rev-stars{font-size:1.2rem;margin-bottom:6px}
+.rev-count{font-size:12px;color:var(--text3)}
+.rev-bars{display:flex;flex-direction:column;gap:6px;margin-top:16px;text-align:left}
+.rev-bar-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text3)}
+.rev-bar-bg{flex:1;height:5px;border-radius:99px;background:var(--bg-warm2);overflow:hidden}
+.rev-bar-fill{height:100%;border-radius:99px;background:var(--text)}
+.rev-bar-row span:first-child{width:22px;text-align:right}
+.rev-bar-row span:last-child{width:16px}
+.reviews-list{display:flex;flex-direction:column;gap:12px}
+.rev-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px}
+.rev-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.rev-user{display:flex;align-items:center;gap:10px}
+.rev-avatar{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:white;flex-shrink:0}
+.rev-user strong{font-size:14px;display:block;margin-bottom:1px}
+.rev-user span{font-size:12px;color:var(--text3)}
+.rev-meta{text-align:right}
+.rev-meta .rev-stars{font-size:14px;margin-bottom:2px}
+.rev-meta .rev-date{font-size:11px;color:var(--text3)}
+.rev-card p{font-size:13px;color:var(--text2);line-height:1.6}
+.rev-service{display:inline-flex;margin-top:10px;padding:3px 9px;border-radius:99px;background:var(--bg);border:1px solid var(--border);font-size:11px;color:var(--text3)}
+
+/* ── FOOTER ── */
+.footer{padding:52px 0;background:var(--bg-warm);border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:28px;margin-bottom:36px}
+.footer-brand p{font-size:13px;color:var(--text2);margin-top:10px;max-width:260px;line-height:1.6}
+.footer-col h4{font-size:13px;font-weight:600;margin-bottom:12px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-col a,.footer-col button{font-size:13px;color:var(--text2);background:none;border:none;cursor:pointer;padding:0;text-align:left;transition:color 0.12s}
+.footer-col a:hover,.footer-col button:hover{color:var(--text)}
+.footer-bottom{padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:12px;color:var(--text3)}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease;transition-delay:var(--d,0ms)}
+.reveal.on{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){
+  .container{width:min(100% - 40px,1000px)}
+}
+@media(max-width:1020px){
+  .creators-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+  .overview-grid{grid-template-columns:1fr}
+  .reviews-layout{grid-template-columns:1fr}
+  .spotlight-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .hero-inner,.how-layout,.calc-grid,.profile-header-inner{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .why-grid,.features-grid,.spotlight-grid,.svc-grid{grid-template-columns:1fr}
+  .ptabs{width:100%;overflow-x:auto;scrollbar-width:none}
+  .profile-cta{align-items:flex-start}
+  .profile-price{text-align:left}
+  .step-visual{position:relative;top:0;margin-top:24px;min-height:auto;max-height:none}
+  .step-card{display:none !important;position:static}
+  .step-card.active{display:flex !important}
+  .hero{padding:44px 0 36px}
+  .why-section,.how-section,.calc-section,.creators-section,.features-section,.spotlight-section,.stats-section{padding:52px 0}
+}
+@media(max-width:600px){
+  .container{width:calc(100% - 24px)}
+  .hero{padding:44px 0 36px}
+  .hero-label{font-size:11px;margin-bottom:14px}
+  .hero-sub{margin-bottom:24px}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:12px;gap:2px;z-index:999}
+  .hamburger{display:flex}
+  .nav-right{display:none}
+  .creators-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;gap:8px}
+  .hero-btns .btn{width:100%;justify-content:center;padding:10px 16px;font-size:13px}
+  .cat-pills{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px;margin:12px 0}
+  .cat-pills::-webkit-scrollbar{display:none}
+  .cat-pill{flex-shrink:0;padding:6px 12px;font-size:12px}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-col h4{font-size:12px;margin-bottom:10px}
+  .footer-col a,.footer-col button{font-size:12px}
+  .why-section,.how-section,.calc-section,.creators-section,.features-section,.spotlight-section,.stats-section{padding:40px 0}
+  .step-item{padding:12px 12px;font-size:13px;margin-left:0}
+  .step-num{font-size:9px}
+  .step-item h3{font-size:13px;margin-bottom:0}
+  .step-item p{font-size:11px;margin-top:4px}
+  .section-title{font-size:clamp(1.3rem,2.5vw,1.8rem);margin-bottom:10px}
+  .section-label{font-size:9px;margin-bottom:12px}
+  .section-sub{font-size:14px}
+  .cc-name,.cc-role,.cc-bio,.cc-tags{font-size:13px}
+  .why-card{padding:18px}
+  .why-card h3{font-size:14px}
+  .why-card p{font-size:12px}
+  .feat-card{padding:16px}
+  .feat-card h3{font-size:14px}
+  .feat-card-sub{font-size:11px}
+  .chip{font-size:11px;padding:3px 9px}
+  .btn-sm{padding:6px 12px;font-size:12px}
+  .btn-lg{padding:11px 20px;font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="navbar">
+  <div class="container">
+    <div class="nav-inner" style="position:relative">
+      <button class="nav-logo" onclick="goHome()"><img src="logo.png" alt="Uptalk" style="height:36px;width:auto"></button>
+      <div class="nav-links" id="navLinks">
+        <button class="nav-link active" data-nav="home" onclick="showPage('home')">Home</button>
+        <button class="nav-link" data-nav="how" onclick="showPage('home','how-section')">How It Works</button>
+        <button class="nav-link" data-nav="features" onclick="showPage('home','features-section')">Features</button>
+        <button class="nav-link" data-nav="pricing" onclick="showPage('home','calc-section')">Pricing</button>
+      </div>
+      <div class="nav-right">
+        <button class="btn btn-ghost btn-sm">Sign in</button>
+        <button class="btn btn-primary btn-sm" onclick="showPage('home','calc-section')">Start earning</button>
+      </div>
+      <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════ HOME PAGE ══════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="reveal">
+          <p class="hero-label">Creator monetization platform</p>
+          <h1>Your expertise, <em>finally</em> worth what it should be.</h1>
+          <p class="hero-sub">Sell 1:1 sessions, workshops, and digital products from one clean storefront. Buyers find you, book, and pay — no DMs, no friction.</p>
+          <div class="hero-btns">
+            <button class="btn btn-primary btn-lg" onclick="showPage('home','calc-section')">Estimate my revenue</button>
+            <button class="btn btn-ghost btn-lg" onclick="showPage('home','how-section')">See how it works</button>
+          </div>
+          <div class="hero-proof">
+            <span class="chip chip-green chip-dot ">1:1 Coaching</span>
+            <span class="chip chip-blue chip-dot">Workshops</span>
+            <span class="chip chip-accent chip-dot">Digital Products</span>
+            <span class="chip chip-gray chip-dot">91% Payout</span>
+          </div>
+        </div>
+        <div class="hero-visual reveal" style="--d:120ms">
+          <div class="dash-preview">
+            <div class="dash-header">
+              <div class="dash-dots"><span class="dash-dot"></span><span class="dash-dot"></span><span class="dash-dot"></span></div>
+              <span class="dash-title">Creator dashboard · Live preview</span>
+            </div>
+            <div class="dash-body">
+              <div class="dash-offer-row">
+                <div><div class="dash-offer-name">Strategy Session</div><div class="dash-offer-type">1:1 · 60 min</div></div>
+                <div class="dash-offer-price">₹8,500</div>
+              </div>
+              <div class="dash-offer-row">
+                <div><div class="dash-offer-name">AI Workshop Kit</div><div class="dash-offer-type">Digital · Instant</div></div>
+                <div class="dash-offer-price">₹2,400</div>
+              </div>
+              <div class="dash-offer-row">
+                <div><div class="dash-offer-name">Cohort Program</div><div class="dash-offer-type">Group · 4 weeks</div></div>
+                <div class="dash-offer-price">Recurring</div>
+              </div>
+              <div class="dash-stats">
+                <div class="dash-stat"><strong>₹1.2L</strong><span>this month</span></div>
+                <div class="dash-stat"><strong>4.9 ★</strong><span>avg. rating</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item reveal"><strong>500+</strong><p>Verified creators across tech, design, and business</p></div>
+        <div class="stat-item reveal" style="--d:60ms"><strong>91%</strong><p>Creator payout — lowest platform fee in the market</p></div>
+        <div class="stat-item reveal" style="--d:120ms"><strong>4.8 ★</strong><p>Average expert rating from verified buyers</p></div>
+        <div class="stat-item reveal" style="--d:180ms"><strong>2.4×</strong><p>Higher booking conversion vs. social media links</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY UPTALK -->
+  <section class="why-section">
+    <div class="container">
+      <div class="section-label">Why Uptalk</div>
+      <div class="section-title">Stop losing buyers to messy setups.</div>
+      <div class="section-sub">Your expertise deserves a presentation that matches its quality. Uptalk closes the gap between what you know and what buyers pay.</div>
+      <div class="why-grid reveal">
+        <div class="why-card">
+          <div class="why-icon"><img src="CuratedAndVerfied.svg" alt="Curated And Verified" style="width:100%;height:100%"></div>
+          <h3>Curated &amp; verified</h3>
+          <p>Every creator is reviewed before listing. Buyers arrive trusting the platform — and trusting you.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon"><img src="Speed%20Outline%20Rounded.svg" alt="Instant Booking" style="width:100%;height:100%"></div>
+          <h3>Instant booking</h3>
+          <p>No email threads. No manual invoices. Buyers book, pay, and get a calendar invite in under 60 seconds.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon"><img src="AllIinone.svg" alt="All in One" style="width:100%;height:100%"></div>
+          <h3>All-in-one</h3>
+          <p>Sessions, digital products, cohorts, and analytics — one dashboard instead of five tools stitched together.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon"><img src="BuyersProtection.svg" alt="Buyer Protection" style="width:100%;height:100%"></div>
+          <h3>Buyer protection</h3>
+          <p>Verified reviews, transparent pricing, and a 48-hour satisfaction window on all bookings.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon"><img src="Premium.svg" alt="Premium" style="width:100%;height:100%"></div>
+          <h3>Premium by default</h3>
+          <p>The platform signals credibility before a buyer reads a single word — so you can charge what you're worth.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon"><img src="Analytics.svg" alt="Analytics" style="width:100%;height:100%"></div>
+          <h3>Revenue analytics</h3>
+          <p>Know which offers convert, where buyers drop off, and exactly how to grow your monthly revenue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS — interactive stepper -->
+  <section class="how-section" id="how-section">
+    <div class="container">
+      <div class="section-label">How it works</div>
+      <div class="section-title">From zero to revenue in one afternoon.</div>
+      <div class="how-layout">
+        <div class="step-list reveal" id="stepList">
+          <div class="step-item active" data-step="0" onclick="setStep(0)">
+            <div class="step-num">STEP 01</div>
+            <h3>Build your storefront</h3>
+            <p>Define your positioning, credentials, and offer stack. Your page goes live looking polished from day one.</p>
+          </div>
+          <div class="step-item" data-step="1" onclick="setStep(1)">
+            <div class="step-num">STEP 02</div>
+            <h3>Add your services</h3>
+            <p>List 1:1 sessions, group workshops, digital downloads — all managed from one clean dashboard.</p>
+          </div>
+          <div class="step-item" data-step="2" onclick="setStep(2)">
+            <div class="step-num">STEP 03</div>
+            <h3>Get discovered</h3>
+            <p>Your profile is indexed in the Uptalk marketplace where thousands of buyers actively search for expertise.</p>
+          </div>
+          <div class="step-item" data-step="3" onclick="setStep(3)">
+            <div class="step-num">STEP 04</div>
+            <h3>Collect your earnings</h3>
+            <p>Buyers book and pay instantly. You keep 91% with direct bank transfer every two weeks.</p>
+          </div>
+        </div>
+        <div class="step-visual reveal" style="--d:100ms" id="stepVisual">
+          <div class="step-card active" data-step="0">
+            <div class="step-card-icon"><img src="build%20store%20front.svg" alt="Build Storefront"></div>
+            <h4>Your premium storefront</h4>
+            <p>One link. All your offers, credentials, reviews, and pricing — presented in a way that commands premium rates.</p>
+            <div class="step-visual-detail">
+              <div class="section-label" style="margin-bottom:8px">What buyers see</div>
+              <div class="step-tag-row">
+                <span class="chip chip-gray chip-dot">Your photo</span>
+                <span class="chip chip-blue chip-dot">Credentials</span>
+                <span class="chip chip-green chip-dot">Live reviews</span>
+                <span class="chip chip-accent chip-dot">Clear pricing</span>
+                <span class="chip chip-green chip-dot">Book now button</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-card" data-step="1">
+            <div class="step-card-icon"><img src="add%20services.svg" alt="Add Services"></div>
+            <h4>Multiple offer types</h4>
+            <p>Stack 1:1 sessions, digital products, and group cohorts on the same page. Buyers can mix and match.</p>
+            <div class="step-visual-detail">
+              <div class="section-label" style="margin-bottom:8px">Offer formats</div>
+              <div class="step-tag-row">
+                <span class="chip chip-green chip-dot">Live sessions</span>
+                <span class="chip chip-blue chip-dot">Digital products</span>
+                <span class="chip chip-gray chip-dot">Group cohorts</span>
+                <span class="chip chip-accent chip-dot">Async review</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-card" data-step="2">
+            <div class="step-card-icon"><img src="get%20discovered.svg" alt="Get Discovered"></div>
+            <h4>High-intent marketplace</h4>
+            <p>Buyers on Uptalk are actively searching for expertise — not scrolling. The intent is already there.</p>
+            <div class="step-visual-detail">
+              <div class="section-label" style="margin-bottom:8px">Discovery channels</div>
+              <div class="step-tag-row">
+                <span class="chip chip-gray chip-dot">Category search</span>
+                <span class="chip chip-blue chip-dot">Keyword ranking</span>
+                <span class="chip chip-accent chip-dot">Featured placement</span>
+                <span class="chip chip-green chip-dot">Review amplification</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-card" data-step="3">
+            <div class="step-card-icon"><img src="collect%20your%20earning%20.svg" alt="Collect Earnings"></div>
+            <h4>91% straight to you</h4>
+            <p>One of the lowest platform fees in the market. Paid directly to your bank account, every two weeks.</p>
+            <div class="step-visual-detail">
+              <div class="section-label" style="margin-bottom:8px">Payout details</div>
+              <div class="step-tag-row">
+                <span class="chip chip-accent chip-dot">91% creator share</span>
+                <span class="chip chip-green chip-dot">Bi-weekly transfer</span>
+                <span class="chip chip-blue chip-dot">UPI · NEFT · IMPS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- REAL EXPERTS SPOTLIGHT -->
+  <section class="spotlight-section">
+    <div class="container">
+      <div class="section-label">Real creators on Uptalk</div>
+      <div class="section-title">Currently taking bookings.</div>
+      <div class="spotlight-grid reveal">
+        <article class="spot-card" onclick="openProfile('vikg')">
+          <div class="spot-head">
+            <img class="spot-avatar" src="https://uptalk.in/uploads/media_to_upload1775299630.jpeg" alt="Vik Gambhir">
+            <div><div class="spot-name">Vik Gambhir</div><div class="spot-role">Interview &amp; Career Coach</div></div>
+          </div>
+          <p class="spot-bio">500+ interviews conducted. Helps professionals land roles at Google, Amazon, and Microsoft with mock interviews and ATS-optimized resumes.</p>
+          <div class="spot-tags"><span class="chip chip-gray">Mock Interviews</span><span class="chip chip-gray">ATS Resume</span></div>
+          <div class="spot-footer">
+            <div><span class="spot-price-label">service fee from</span><div class="spot-price">₹5,000</div></div>
+            <button class="btn btn-ghost btn-sm">View profile</button>
+          </div>
+        </article>
+        <article class="spot-card" onclick="openProfile('venkatesh')">
+          <div class="spot-head">
+            <img class="spot-avatar" src="https://uptalk.in/uploads/media_to_upload1775459905.jpeg" alt="Venkatesh D">
+            <div><div class="spot-name">Venkatesh D</div><div class="spot-role">Software Engineer at Google</div></div>
+          </div>
+          <p class="spot-bio">Mentors on web dev, app dev, AI/ML, and Web3. Specializes in helping blocked engineers get unstuck and ace technical interviews.</p>
+          <div class="spot-tags"><span class="chip chip-gray">Mentorship</span><span class="chip chip-gray">Interview Prep</span></div>
+          <div class="spot-footer">
+            <div><span class="spot-price-label">service fee from</span><div class="spot-price">₹599</div></div>
+            <button class="btn btn-ghost btn-sm">View profile</button>
+          </div>
+        </article>
+        <article class="spot-card" onclick="openProfile('priyansh')">
+          <div class="spot-head">
+            <img class="spot-avatar" src="https://uptalk.in/uploads/media_to_upload1775312185.jpg" alt="Priyansh Saxena">
+            <div><div class="spot-name">Priyansh Saxena</div><div class="spot-role">Machine Learning Engineer</div></div>
+          </div>
+          <p class="spot-bio">MLE-3 at GoDaddy. Helps learners bridge AI theory and production systems with mentorship and structured cohort programs.</p>
+          <div class="spot-tags"><span class="chip chip-gray">ML Systems</span><span class="chip chip-gray">Mentorship</span></div>
+          <div class="spot-footer">
+            <div><span class="spot-price-label">service fee from</span><div class="spot-price">₹498</div></div>
+            <button class="btn btn-ghost btn-sm">View profile</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES — expandable cards -->
+  <section class="features-section" id="features-section">
+    <div class="container">
+      <div class="section-label">Platform features</div>
+      <div class="section-title">Everything you need, nothing you don't.</div>
+      <div class="features-grid reveal" id="featuresGrid">
+        <div class="feat-card" onclick="toggleFeat(this)">
+          <div class="feat-card-header">
+            <div style="flex:1"><div class="feat-card-icon">1</div><h3>Storefront Builder</h3><div class="feat-card-sub">Your offers, your brand</div></div>
+            <div class="feat-toggle">+</div>
+          </div>
+          <div class="feat-body">
+            <p>One polished page that explains your offers, shows your credentials, and converts buyers without any design work on your end.</p>
+            <ul class="feat-list"><li>Offer-led page architecture</li><li>Professional visual hierarchy</li><li>Mobile-optimized by default</li></ul>
+          </div>
+        </div>
+        <div class="feat-card" onclick="toggleFeat(this)">
+          <div class="feat-card-header">
+            <div style="flex:1"><div class="feat-card-icon">2</div><h3>Smart Booking</h3><div class="feat-card-sub">No back-and-forth</div></div>
+            <div class="feat-toggle">+</div>
+          </div>
+          <div class="feat-body">
+            <p>Calendar sync, automated reminders, and instant payment collection — all without any manual coordination from you.</p>
+            <ul class="feat-list"><li>Google &amp; Outlook calendar sync</li><li>Automated buyer reminders</li><li>Pre-session intake forms</li></ul>
+          </div>
+        </div>
+        <div class="feat-card" onclick="toggleFeat(this)">
+          <div class="feat-card-header">
+            <div style="flex:1"><div class="feat-card-icon">3</div><h3>Smooth Checkout</h3><div class="feat-card-sub">Fewer drop-offs</div></div>
+            <div class="feat-toggle">+</div>
+          </div>
+          <div class="feat-body">
+            <p>A trust-optimized purchase flow that matches the quality of your brand — reducing drop-off between interest and payment.</p>
+            <ul class="feat-list"><li>UPI, cards, net banking</li><li>EMI options for premium offers</li><li>Instant buyer confirmation</li></ul>
+          </div>
+        </div>
+        <div class="feat-card" onclick="toggleFeat(this)">
+          <div class="feat-card-header">
+            <div style="flex:1"><div class="feat-card-icon">4</div><h3>Digital Products</h3><div class="feat-card-sub">Earn while you sleep</div></div>
+            <div class="feat-toggle">+</div>
+          </div>
+          <div class="feat-body">
+            <p>Package expertise into templates, playbooks, and recorded workshops that generate income with zero time investment.</p>
+            <ul class="feat-list"><li>PDF guides &amp; templates</li><li>Video courses &amp; tutorials</li><li>Instant delivery &amp; access</li></ul>
+          </div>
+        </div>
+        <div class="feat-card" onclick="toggleFeat(this)">
+          <div class="feat-card-header">
+            <div style="flex:1"><div class="feat-card-icon">5</div><h3>Revenue Analytics</h3><div class="feat-card-sub">Know what converts</div></div>
+            <div class="feat-toggle">+</div>
+          </div>
+          <div class="feat-body">
+            <p>Know which services sell, where buyers drop off, and how to refine your offers to earn more each month.</p>
+            <ul class="feat-list"><li>Offer performance dashboard</li><li>Revenue trends &amp; forecasting</li><li>Buyer behavior insights</li></ul>
+          </div>
+        </div>
+        <div class="feat-card" onclick="toggleFeat(this)">
+          <div class="feat-card-header">
+            <div style="flex:1"><div class="feat-card-icon">6</div><h3>Marketplace</h3><div class="feat-card-sub">Buyers find you</div></div>
+            <div class="feat-toggle">+</div>
+          </div>
+          <div class="feat-body">
+            <p>Get discovered by high-intent buyers searching for your exact expertise — no cold outreach, no paid ads required.</p>
+            <ul class="feat-list"><li>Category &amp; keyword ranking</li><li>Featured expert placement</li><li>Review amplification</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVENUE CALCULATOR -->
+  <section class="calc-section" id="calc-section">
+    <div class="container">
+      <div class="section-label">Revenue calculator</div>
+      <div class="section-title">What could you realistically earn?</div>
+      <div class="calc-grid reveal">
+        <div class="calc-panel">
+          <div class="calc-label">Your audience size</div>
+          <div class="calc-val" id="audDisplay">2,79,000</div>
+          <input class="range" type="range" id="audSlider" min="10000" max="1000000" step="1000" value="279000">
+          <div class="calc-hint">Followers across LinkedIn, Instagram, YouTube, newsletters</div>
+          <div class="calc-divider"></div>
+          <div class="calc-label">Avg. price per session</div>
+          <div class="calc-val" id="priceDisplay">₹500</div>
+          <input class="range" type="range" id="priceSlider" min="100" max="15000" step="100" value="500">
+          <div class="calc-hint">Higher with strong positioning and niche expertise</div>
+          <div class="calc-note">Creators with premium positioning typically command 40–80% higher prices than those using basic booking links.</div>
+        </div>
+        <div class="calc-panel">
+          <div class="calc-label">Monthly bookings at ~2% conversion</div>
+          <div class="result-number" id="calcBookings">5,580</div>
+          <div class="result-sub" style="margin-bottom:28px">estimated bookings</div>
+          <div class="calc-divider"></div>
+          <div class="calc-label" style="margin-top:20px">You keep (91%)</div>
+          <div class="result-number" id="calcEarnings">₹25,38,900</div>
+          <div class="result-sub">net monthly earnings after 9% platform fee</div>
+          <div style="margin-top:28px">
+            <button class="btn btn-primary" onclick="showPage('home','creators-section')">Browse experts first →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- ══════════════════════════════ PROFILE PAGE ══════════════════════════════ -->
+<div id="page-profile" class="profile-page">
+  <div class="profile-back-bar">
+    <div class="container">
+      <button class="back-btn" onclick="goBackFromProfile()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Back
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="profile-header">
+      <div class="profile-header-inner" id="profileHeader"></div>
+      <div class="ptabs" id="ptabs">
+        <button class="ptab-btn active" onclick="switchProfileTab('services')">Services</button>
+        <button class="ptab-btn" onclick="switchProfileTab('overview')">Overview</button>
+        <button class="ptab-btn" onclick="switchProfileTab('faq')">FAQ</button>
+        <button class="ptab-btn" onclick="switchProfileTab('reviews')">Reviews</button>
+      </div>
+      <div class="ptab-pane active" id="ptab-services">
+        <div class="svc-filter" id="svcFilter">
+          <button class="svc-filter-btn active" data-type="all">All</button>
+          <button class="svc-filter-btn" data-type="live">Live</button>
+          <button class="svc-filter-btn" data-type="recorded">Recorded</button>
+          <button class="svc-filter-btn" data-type="digital">Digital</button>
+          <button class="svc-filter-btn" data-type="group">Group</button>
+          <button class="svc-filter-btn" data-type="async">Async</button>
+        </div>
+        <div class="svc-grid" id="svcGrid"></div>
+      </div>
+      <div class="ptab-pane" id="ptab-overview">
+        <div class="overview-grid" id="overviewContent"></div>
+      </div>
+      <div class="ptab-pane" id="ptab-faq">
+        <div class="faq-list" id="faqContent"></div>
+      </div>
+      <div class="ptab-pane" id="ptab-reviews">
+        <div class="reviews-layout" id="reviewsContent"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer" id="mainFooter">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo.png" alt="Uptalk" style="height:32px;width:auto;margin-bottom:10px">
+        <p>The premium marketplace where knowledge creators monetize expertise through sessions, workshops, and digital products.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Marketplace</h4>
+        <ul>
+          <li><button onclick="showPage('home')">Home</button></li>
+          <li><button onclick="showPage('home','how-section')">How It Works</button></li>
+          <li><button onclick="showPage('home','features-section')">Features</button></li>
+          <li><button onclick="showPage('home','calc-section')">Pricing</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Creator Tools</h4>
+        <ul>
+          <li><a href="#">Storefront Builder</a></li>
+          <li><a href="#">Analytics</a></li>
+          <li><a href="#">Payouts</a></li>
+          <li><a href="#">Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Creator Agreement</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Uptalk Technologies. All rights reserved.</p>
+      <p>Built for serious knowledge creators.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── DATA ── */
+const CREATORS = {
+  vikg:{name:"Vik Gambhir",role:"Interview & Career Coach",avatar:"https://uptalk.in/uploads/media_to_upload1775299630.jpeg",score:"4.9",reviews:128,sessions:500,price:"₹5,000",priceFrom:"service fee",bio:"Experienced interviewer and career coach focused on resumes, LinkedIn optimization, interview preparation, and career clarity. He has conducted 500+ interviews, reviewed 2,000+ resumes, and coached professionals toward stronger outcomes.",expertise:["Mock Interviews","ATS Resume Writing","LinkedIn Optimization","Career Guidance","Salary Negotiation"],clients:["Google","Atlassian","Amazon","Microsoft","Booking.com","Canva"],achievements:[{icon:"🎯",title:"500+ interviews conducted",desc:"High-signal feedback from both sides of the table"},{icon:"📄",title:"2,000+ resumes reviewed",desc:"ATS-friendly rewrites for recruiter screening"},{icon:"🚀",title:"300+ coached clients",desc:"Landed roles at top global companies"}],langs:["English","Hindi"],avail:[{day:"Mon–Fri",time:"6pm – 10pm IST"},{day:"Saturday",time:"10am – 6pm IST"},{day:"Sunday",time:"Limited slots"}],response:"Replies within a few hours. Best for interview prep and resume help.",rating:4.9,ratingCount:128,ratingBars:[110,14,3,1,0],services:[{type:"live",icon:"🎙️",title:"Mock Interviews",desc:"Personalized mock interview practice with actionable feedback on structure, delivery, and confidence.",details:["1:1 interview coaching","Actionable feedback","Role-specific prep"],price:"₹5,000",per:"service fee",rating:"4.9",ratingCount:74,popular:true},{type:"live",icon:"🧭",title:"Career Clarity Session",desc:"Identify roadblocks, refine your next step, and build an action plan you can use immediately.",details:["Career roadmap","Clear next steps","Practical feedback"],price:"₹3,994",per:"service fee",rating:"4.8",ratingCount:29},{type:"live",icon:"📄",title:"ATS Friendly Resume",desc:"Resume review and rewrite built to pass ATS filters and make recruiter scanning easier.",details:["ATS-friendly structure","Impact-first bullets","Resume refinement"],price:"₹7,000",per:"service fee",rating:"4.9",ratingCount:41}],faqs:[{q:"What can you help with most?",a:"Interview preparation, ATS resumes, LinkedIn optimization, and practical career strategy."},{q:"Is this generic interview prep?",a:"No. Sessions focus on your actual role, background, and interview context."},{q:"Who is this best for?",a:"Professionals who want sharper positioning, stronger interviews, and a clearer career path."}],reviewsData:[{name:"Aman Verma",initials:"AV",color:"#0891b2",role:"Product Manager",stars:5,date:"March 2026",service:"ATS Friendly Resume",text:"My resume became much sharper and recruiter responses improved almost immediately after Vik reworked it."},{name:"Shweta Rao",initials:"SR",color:"#7c3aed",role:"Software Engineer",stars:5,date:"February 2026",service:"Mock Interviews",text:"The mock interview feedback was precise and practical. It helped me answer with much better structure and confidence."}]},
+  venkatesh:{name:"Venkatesh D",role:"Software Engineer at Google",avatar:"https://uptalk.in/uploads/media_to_upload1775459905.jpeg",score:"4.8",reviews:86,sessions:220,price:"₹599",priceFrom:"service fee",bio:"Software Engineer at Google mentoring across web development, app development, software engineering, AI/ML, and Web3. Best suited for Q&A, 1:1 mentorship, and focused interview prep.",expertise:["Web Development","App Development","Software Development","AI/ML","Web3","Interview Prep"],clients:["Google","Student Communities","Early Career Engineers"],achievements:[{icon:"💻",title:"Software Engineer at Google",desc:"Hands-on engineering perspective for learners"},{icon:"🧠",title:"Cross-domain mentor",desc:"Supports web, app, AI/ML, and Web3 questions"},{icon:"🎯",title:"Interview-focused guidance",desc:"Actionable prep for candidates feeling blocked"}],langs:["English"],avail:[{day:"Mon–Fri",time:"7pm – 10pm IST"},{day:"Saturday",time:"11am – 5pm IST"},{day:"Sunday",time:"By appointment"}],response:"Replies quickly for mentorship and interview-prep questions.",rating:4.8,ratingCount:86,ratingBars:[70,12,3,1,0],services:[{type:"live",icon:"❓",title:"Q & A Session",desc:"Ask doubts freely across development, AI/ML, Web3, or career topics.",details:["Open Q&A format","Direct practical answers","Beginner-friendly"],price:"₹99",per:"service fee",rating:"4.8",ratingCount:33},{type:"live",icon:"🤝",title:"1:1 Mentorship",desc:"Step-by-step mentorship for career clarity, interview prep, and breaking past short-term blocks.",details:["Personalized guidance","Actionable next steps","Career and interview focus"],price:"₹599",per:"service fee",rating:"4.9",ratingCount:37,popular:true},{type:"live",icon:"🗣️",title:"Interview Prep",desc:"Focused support for upcoming interviews with common questions, process guidance, and confidence building.",details:["Interview tips","Frequently asked questions","Confidence building"],price:"₹499",per:"service fee",rating:"4.8",ratingCount:28}],faqs:[{q:"What topics do you cover?",a:"Web development, app development, software engineering, AI/ML, Web3, and interview prep."},{q:"Who should book mentorship?",a:"Anyone who feels blocked around interviews, technical direction, or career choices."},{q:"Is this beginner-friendly?",a:"Yes. Questions and sessions can be adapted to your current level."}],reviewsData:[{name:"Rahul Das",initials:"RD",color:"#059669",role:"Student Developer",stars:5,date:"March 2026",service:"1:1 Mentorship",text:"The advice was practical and easy to act on. I left with clear next steps instead of more confusion."},{name:"Nikita Jain",initials:"NJ",color:"#d97706",role:"Frontend Engineer",stars:5,date:"January 2026",service:"Interview Prep",text:"The prep call helped me understand the process better and made me feel much more prepared."}]},
+  priyansh:{name:"Priyansh Saxena",role:"Machine Learning Engineer",avatar:"https://uptalk.in/uploads/media_to_upload1775312185.jpg",score:"4.9",reviews:64,sessions:170,price:"₹498",priceFrom:"service fee",bio:"Machine Learning Engineer and data scientist building large-scale AI systems. Works on production-grade ML and actively mentors aspiring data scientists and engineers bridge theory to practice.",expertise:["Machine Learning","Data Science","Applied AI","ML Infrastructure","Production ML"],clients:["GoDaddy","InMobi","Masai School","Newton School"],achievements:[{icon:"🤖",title:"MLE-3 at GoDaddy",desc:"Builds and deploys production ML systems"},{icon:"🎓",title:"Active mentor and educator",desc:"Helps learners bridge theory and real-world ML"},{icon:"📚",title:"Research and patents",desc:"Authored publications in data science"}],langs:["English","Hindi"],avail:[{day:"Mon–Fri",time:"6pm – 9pm IST"},{day:"Saturday",time:"10am – 4pm IST"},{day:"Sunday",time:"Limited slots"}],response:"Replies within a few hours for mentorship and AI/ML support.",rating:4.9,ratingCount:64,ratingBars:[54,8,2,0,0],services:[{type:"live",icon:"📄",title:"Resume Review",desc:"Focused resume help for aspiring data scientists and machine learning engineers.",details:["Resume review","Sharper positioning","Role-focused feedback"],price:"₹498",per:"service fee",rating:"4.8",ratingCount:24},{type:"group",icon:"👥",title:"Cohort Program",desc:"Structured cohort learning with live sessions, hands-on exercises, and accountability.",details:["Live sessions","Collaborative learning","Hands-on exercises"],price:"₹968",per:"service fee",rating:"4.9",ratingCount:16,popular:true},{type:"live",icon:"🧠",title:"1:1 Strategy Session",desc:"Personalized guidance for career growth, problem-solving, and next-step clarity.",details:["1:1 mentorship","Actionable plan","Personalized feedback"],price:"₹100",per:"service fee",rating:"4.9",ratingCount:21}],faqs:[{q:"What mentorship is this best for?",a:"AI/ML learning, machine learning system thinking, production-focused guidance, and career growth."},{q:"Do you bridge theory and practice?",a:"Yes. That is one of the main goals of every session and cohort."},{q:"Who should book a 1:1?",a:"Learners or professionals who want focused expert feedback and a clearer plan forward."}],reviewsData:[{name:"Karan Singh",initials:"KS",color:"#0891b2",role:"Data Analyst",stars:5,date:"March 2026",service:"1:1 Strategy Session",text:"Priyansh simplified complex ML ideas and helped me turn them into a practical learning path."},{name:"Megha Patel",initials:"MP",color:"#db2777",role:"Aspiring ML Engineer",stars:5,date:"February 2026",service:"Resume Review",text:"The resume feedback was crisp and useful, and made my profile feel much more focused for ML roles."}]},
+  aarav:{name:"Aarav Menon",role:"AI Product Strategist",avatar:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",score:"4.9",reviews:94,sessions:280,price:"₹8,500",priceFrom:"from",bio:"Helps founders design AI-first products, sharpen positioning, and build monetizable advisory offers that close high-intent buyers.",expertise:["AI Strategy","Product Design","Roadmapping","Monetization","Advisory"],clients:["Startups","SaaS Founders","AI Companies"],achievements:[{icon:"🤖",title:"AI Product Advisor",desc:"Strategy and product for AI-first companies"},{icon:"📈",title:"Revenue-focused",desc:"Helped 50+ founders build monetizable offers"},{icon:"🎯",title:"Positioning expert",desc:"Sharpens how founders explain their AI products"}],langs:["English"],avail:[{day:"Mon–Fri",time:"10am – 6pm IST"}],response:"Replies within 4 hours.",rating:4.9,ratingCount:94,ratingBars:[80,10,3,1,0],services:[{type:"live",icon:"🧭",title:"AI Strategy Session",desc:"A focused strategy session to define AI product positioning, feature priorities, and go-to-market approach.",details:["AI product strategy","Positioning clarity","GTM recommendations"],price:"₹8,500",per:"per consultation",rating:"4.9",ratingCount:60,popular:true}],faqs:[{q:"Who is this for?",a:"Founders building AI-first products who need sharper positioning and a clear advisory offer."},{q:"What do you help with most?",a:"AI product strategy, positioning, and building offers that close high-intent buyers."}],reviewsData:[{name:"Raj Mehta",initials:"RM",color:"#0891b2",role:"AI Startup Founder",stars:5,date:"April 2026",service:"AI Strategy Session",text:"Aarav helped me articulate what my product actually does in a way buyers immediately understood."}]},
+  rhea:{name:"Rhea Kapoor",role:"Brand & UX Designer",avatar:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",score:"4.8",reviews:71,sessions:190,price:"₹6,200",priceFrom:"from",bio:"Creates high-fidelity creator brands, premium landing pages, and visual systems that elevate perceived value instantly.",expertise:["Branding","UX Design","Figma","Visual Systems","Landing Pages"],clients:["Creators","D2C Brands","SaaS Companies"],achievements:[{icon:"🎨",title:"Senior Brand Designer",desc:"Visual systems for 100+ brands"},{icon:"🖥️",title:"Figma expert",desc:"Complex component libraries and design systems"},{icon:"✨",title:"Creator specialist",desc:"Specializes in personal brand and creator storefronts"}],langs:["English","Hindi"],avail:[{day:"Tue–Fri",time:"11am – 7pm IST"},{day:"Saturday",time:"By request"}],response:"Replies within 6 hours.",rating:4.8,ratingCount:71,ratingBars:[60,8,2,1,0],services:[{type:"live",icon:"🎨",title:"Design Review",desc:"A thorough design review of your brand, product, or landing page with actionable redesign recommendations.",details:["Full brand audit","Redesign suggestions","Figma deliverables"],price:"₹6,200",per:"per design review",rating:"4.8",ratingCount:71,popular:true}],faqs:[{q:"What do you review?",a:"Brand identity, landing pages, product UI, and visual systems."},{q:"Do you provide Figma files?",a:"Yes, all recommendations come with annotated Figma files."}],reviewsData:[{name:"Prerna Kapoor",initials:"PK",color:"#7c3aed",role:"Creator / Coach",stars:5,date:"March 2026",service:"Design Review",text:"Rhea completely transformed how my brand looks. It now actually matches the quality of what I deliver."}]},
+  kabir:{name:"Kabir Nair",role:"Startup Growth Mentor",avatar:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",score:"4.95",reviews:112,sessions:340,price:"₹9,000",priceFrom:"from",bio:"Runs focused sessions for early-stage founders on GTM clarity, revenue systems, and high-conviction decision making.",expertise:["GTM Strategy","Sales Systems","Founder Ops","Revenue","Fundraising"],clients:["Early-stage Startups","B2B Founders","SaaS Companies"],achievements:[{icon:"🚀",title:"Startup Mentor",desc:"Mentored 80+ founders to first revenue"},{icon:"💰",title:"GTM specialist",desc:"Helped founders build repeatable sales systems"},{icon:"🎯",title:"Decision-making coach",desc:"High-conviction frameworks for early-stage decisions"}],langs:["English"],avail:[{day:"Mon, Wed, Fri",time:"9am – 5pm IST"},{day:"Saturday",time:"10am – 2pm IST"}],response:"Replies within 2 hours.",rating:4.95,ratingCount:112,ratingBars:[100,10,2,0,0],services:[{type:"live",icon:"📈",title:"GTM Strategy Call",desc:"A focused session to sharpen your go-to-market, build a repeatable sales motion, and identify your highest-leverage growth levers.",details:["GTM clarity","Sales system design","Growth lever identification"],price:"₹9,000",per:"per strategy call",rating:"4.95",ratingCount:112,popular:true}],faqs:[{q:"Who is this best for?",a:"Early-stage founders who have a product but are struggling to get consistent revenue."},{q:"What will I leave with?",a:"A clear GTM plan, a prioritized action list, and a repeatable sales motion."}],reviewsData:[{name:"Ankit Sharma",initials:"AS",color:"#059669",role:"B2B Founder",stars:5,date:"April 2026",service:"GTM Strategy Call",text:"Kabir helped me see exactly where my sales process was breaking and gave me a clear, actionable system to fix it."}]},
+  neha:{name:"Neha Goyal",role:"Growth Marketing Expert",avatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",score:"4.7",reviews:58,sessions:160,price:"₹5,400",priceFrom:"from",bio:"Builds conversion-led launch funnels, audience journeys, and premium offer positioning that turn attention into recurring revenue.",expertise:["Growth Marketing","Funnels","Email Marketing","Conversion","Launch Strategy"],clients:["Creators","Course Builders","Online Businesses"],achievements:[{icon:"📧",title:"Email marketing specialist",desc:"Built sequences generating 35%+ open rates"},{icon:"🔄",title:"Funnel architect",desc:"Designed high-conversion launch funnels"},{icon:"📈",title:"Audience growth",desc:"Helped creators turn followers into buyers"}],langs:["English","Hindi"],avail:[{day:"Tue, Thu, Fri",time:"10am – 6pm IST"}],response:"Replies within 8 hours.",rating:4.7,ratingCount:58,ratingBars:[46,9,2,1,0],services:[{type:"live",icon:"🔍",title:"Growth Audit",desc:"A comprehensive audit of your marketing funnel, email sequences, and offer positioning with a prioritized growth plan.",details:["Funnel audit","Email review","Conversion recommendations"],price:"₹5,400",per:"per growth audit",rating:"4.7",ratingCount:58,popular:true}],faqs:[{q:"What do you audit?",a:"Your entire marketing funnel, email sequences, offer positioning, and conversion touchpoints."},{q:"What will I get?",a:"A written audit report with prioritized recommendations and a 90-day growth plan."}],reviewsData:[{name:"Shreya Nair",initials:"SN",color:"#d97706",role:"Online Course Creator",stars:5,date:"March 2026",service:"Growth Audit",text:"Neha spotted three major leaks in my funnel that I had completely missed. Fixed them and my launch did 2x what the last one did."}]},
+  meera:{name:"Meera Rao",role:"Creator Finance Coach",avatar:"https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=200&h=200&fit=crop",score:"4.9",reviews:83,sessions:240,price:"₹4,800",priceFrom:"from",bio:"Helps service businesses master pricing, improve margins, build repeat revenue, and understand financial health without complexity overload.",expertise:["Pricing Strategy","Cashflow Management","Revenue Systems","Financial Planning","Margins"],clients:["Freelancers","Coaches","Service Businesses"],achievements:[{icon:"💰",title:"Pricing strategist",desc:"Helped 100+ businesses increase pricing by 30–60%"},{icon:"📊",title:"Cashflow specialist",desc:"Simplified financial tracking for non-finance founders"},{icon:"🔄",title:"Recurring revenue",desc:"Built subscription and retainer models for service businesses"}],langs:["English","Kannada"],avail:[{day:"Mon, Tue, Thu",time:"10am – 5pm IST"}],response:"Replies within 4 hours.",rating:4.9,ratingCount:83,ratingBars:[72,9,1,1,0],services:[{type:"live",icon:"💸",title:"Finance Session",desc:"A focused session on pricing strategy, cashflow clarity, margin improvement, or building a recurring revenue model.",details:["Pricing strategy","Cashflow planning","Revenue model design"],price:"₹4,800",per:"per finance session",rating:"4.9",ratingCount:83,popular:true}],faqs:[{q:"Who is this best for?",a:"Freelancers, coaches, and service business owners who want to earn more without working more."},{q:"What will I leave with?",a:"A clear pricing strategy, a cashflow snapshot, and a plan to build more predictable revenue."}],reviewsData:[{name:"Divya Krishnan",initials:"DK",color:"#0891b2",role:"Independent Consultant",stars:5,date:"March 2026",service:"Finance Session",text:"Meera helped me finally understand my own numbers and gave me the confidence to raise my prices significantly."}]},
+  vikram:{name:"Vikram Sethi",role:"Engineering Career Coach",avatar:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop",score:"4.8",reviews:67,sessions:200,price:"₹3,900",priceFrom:"from",bio:"Provides high-signal mentoring for system design interviews, technical storytelling, and navigating into senior engineering roles at top companies.",expertise:["System Design","Technical Interviews","Career Coaching","Senior Engineering","Leadership"],clients:["Mid-level Engineers","Career Switchers","FAANG Aspirants"],achievements:[{icon:"🏗️",title:"System design expert",desc:"Coached 60+ engineers on design interviews"},{icon:"🎯",title:"FAANG coaching",desc:"Multiple clients landed offers at top tech companies"},{icon:"📖",title:"Technical storytelling",desc:"Helps engineers communicate impact clearly"}],langs:["English","Hindi"],avail:[{day:"Wed, Sat, Sun",time:"Available mornings and evenings"}],response:"Replies within 12 hours.",rating:4.8,ratingCount:67,ratingBars:[56,9,1,1,0],services:[{type:"live",icon:"🏗️",title:"Coaching Session",desc:"High-signal mentoring for system design interviews, technical storytelling, and navigating senior engineering roles.",details:["System design prep","Technical storytelling","Career navigation"],price:"₹3,900",per:"per coaching session",rating:"4.8",ratingCount:67,popular:true}],faqs:[{q:"Who is this for?",a:"Mid-level engineers looking to move into senior roles or land offers at top companies."},{q:"What does a session look like?",a:"A focused 60-min session on your specific situation — system design mock, career planning, or interview debrief."}],reviewsData:[{name:"Saurabh Mishra",initials:"SM",color:"#6d28d9",role:"Software Engineer",stars:5,date:"February 2026",service:"Coaching Session",text:"Vikram gave me a completely different way to think about system design. Passed my FAANG interview on the next attempt."}]},
+  noelle:{name:"Noelle Russell",role:"AI Workshop Creator",avatar:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop",score:"4.9",reviews:79,sessions:210,price:"₹7,800",priceFrom:"from",bio:"Designs premium AI adoption workshops, cohort programs, and team enablement experiences for organizations ready to move beyond the hype.",expertise:["AI Workshops","Prompt Engineering","Team Enablement","AI Adoption","Cohort Programs"],clients:["Enterprise Teams","Tech Companies","Agencies"],achievements:[{icon:"🤖",title:"AI enablement specialist",desc:"Trained 500+ professionals on AI adoption"},{icon:"🎓",title:"Cohort designer",desc:"Built structured AI learning programs for teams"},{icon:"💡",title:"Prompt engineering expert",desc:"Practical, production-ready prompting frameworks"}],langs:["English"],avail:[{day:"Mon–Fri",time:"9am – 5pm IST"}],response:"Replies within 4 hours for team bookings.",rating:4.9,ratingCount:79,ratingBars:[68,9,1,1,0],services:[{type:"group",icon:"🤖",title:"AI Workshop",desc:"A premium AI adoption workshop for teams — practical, outcome-focused, and built around your organization's actual workflows.",details:["Team AI workshop","Prompt engineering","Practical frameworks"],price:"₹7,800",per:"per workshop seat",rating:"4.9",ratingCount:79,popular:true}],faqs:[{q:"Who is this for?",a:"Teams and organizations wanting to practically adopt AI tools without getting lost in the hype."},{q:"What do participants leave with?",a:"Practical AI workflows, a prompt engineering toolkit, and a 30-day AI adoption plan."}],reviewsData:[{name:"Tanvir Ahmed",initials:"TA",color:"#059669",role:"Product Lead",stars:5,date:"April 2026",service:"AI Workshop",text:"Noelle ran the best AI workshop my team has attended. Practical, engaging, and immediately applicable to our work."}]},
+  priya:{name:"Priya Sharma",role:"Leadership & Executive Coach",avatar:"https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop",score:"4.85",reviews:96,sessions:290,price:"₹6,000",priceFrom:"from",bio:"Equips ambitious professionals with executive presence, communication clarity, and a promotion-ready leadership identity that commands respect.",expertise:["Leadership","Executive Presence","Communication","Career Growth","Promotion Strategy"],clients:["Senior Managers","Directors","VP Aspirants"],achievements:[{icon:"👑",title:"Executive coach",desc:"Coached 80+ professionals to senior roles"},{icon:"🗣️",title:"Communication specialist",desc:"Sharpens executive presence and communication"},{icon:"📈",title:"Promotion strategist",desc:"Practical promotion frameworks that actually work"}],langs:["English","Hindi"],avail:[{day:"Mon–Sat",time:"Flexible slots available"}],response:"Replies within 3 hours.",rating:4.85,ratingCount:96,ratingBars:[82,11,2,1,0],services:[{type:"live",icon:"👑",title:"Executive Coaching",desc:"A private session focused on executive presence, communication clarity, and a promotion strategy tailored to your exact situation.",details:["Executive presence","Communication coaching","Promotion planning"],price:"₹6,000",per:"per private session",rating:"4.85",ratingCount:96,popular:true}],faqs:[{q:"Who is this for?",a:"Ambitious professionals who want to step into senior leadership roles with confidence and clarity."},{q:"What will I get?",a:"A personalized leadership development plan and concrete steps toward your next promotion."}],reviewsData:[{name:"Pallavi Singh",initials:"PS",color:"#db2777",role:"Senior Manager",stars:5,date:"April 2026",service:"Executive Coaching",text:"Priya helped me understand exactly what was holding me back and gave me a clear plan to present myself as a VP-ready leader."}]}
+};
+
+/* ── STATE ── */
+let activePage = 'home';
+let previousPage = 'home';
+let activeCreatorId = null;
+
+/* ── PAGE ROUTING ── */
+function showPage(page, section) {
+  document.getElementById('page-home').classList.remove('active');
+  document.getElementById('page-profile').classList.remove('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('navLinks').classList.remove('open');
+  if(page === 'profile') {
+    document.getElementById('page-profile').classList.add('active');
+  } else {
+    document.getElementById('page-home').classList.add('active');
+    activePage = page;
+    const navMap = {'pricing':'pricing','how':'how','features':'features','home':'home'};
+    const navKey = section === 'calc-section' ? 'pricing' : section === 'how-section' ? 'how' : section === 'features-section' ? 'features' : 'home';
+    const navEl = document.querySelector(`[data-nav="${navKey}"]`);
+    if(navEl) navEl.classList.add('active');
+    requestAnimationFrame(() => {
+      if(section) { const el = document.getElementById(section); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+      else window.scrollTo({top:0,behavior:'smooth'});
+      revealAll();
+    });
+  }
+}
+function goHome() { showPage('home'); }
+function goBackFromProfile() {
+  document.getElementById('page-profile').classList.remove('active');
+  document.getElementById('page-home').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── STEP STEPPER ── */
+function setStep(n) {
+  document.querySelectorAll('.step-item').forEach((el,i) => el.classList.toggle('active', i === n));
+  document.querySelectorAll('.step-card').forEach((el,i) => el.classList.toggle('active', i === n));
+}
+
+/* ── FEATURE CARDS ── */
+function toggleFeat(card) { card.classList.toggle('open'); }
+
+/* ── CALCULATOR ── */
+function fmtNum(n) { return new Intl.NumberFormat('en-IN').format(Math.round(n)); }
+function fmtCur(n) { return '₹' + fmtNum(n); }
+function calcUpdate() {
+  const aud = +(document.getElementById('audSlider').value||0);
+  const price = +(document.getElementById('priceSlider').value||0);
+  const bookings = Math.round(aud * 0.02);
+  const gross = bookings * price;
+  const earn = Math.round(gross * 0.91);
+  document.getElementById('audDisplay').textContent = fmtNum(aud);
+  document.getElementById('priceDisplay').textContent = fmtCur(price);
+  document.getElementById('calcBookings').textContent = fmtNum(bookings);
+  document.getElementById('calcEarnings').textContent = fmtCur(earn);
+}
+document.getElementById('audSlider').addEventListener('input', calcUpdate);
+document.getElementById('priceSlider').addEventListener('input', calcUpdate);
+
+/* ── PROFILE OPEN ── */
+function openProfile(id) {
+  const c = CREATORS[id];
+  if(!c) return;
+  activeCreatorId = id;
+  previousPage = activePage;
+  // Header
+  document.getElementById('profileHeader').innerHTML = `
+    <img class="profile-avatar" src="${c.avatar}" alt="${c.name}">
+    <div>
+      <div class="profile-name">${c.name}</div>
+      <div class="profile-role">${c.role}</div>
+      <p class="profile-bio-short">${c.bio.substring(0,180)}…</p>
+      <div class="profile-tags">${c.expertise.slice(0,5).map(e=>`<span class="profile-tag">${e}</span>`).join('')}</div>
+      <div class="profile-metrics">
+        <div class="pmetric"><strong>${c.score} ★</strong><span>Rating</span></div>
+        <div class="pmetric"><strong>${c.reviews}</strong><span>Reviews</span></div>
+        <div class="pmetric"><strong>${c.sessions}+</strong><span>Sessions</span></div>
+        <div class="pmetric"><strong>Verified</strong><span>Expert</span></div>
+      </div>
+    </div>
+    <div class="profile-cta">
+      <div class="profile-price"><span>${c.priceFrom}</span><strong>${c.price}</strong></div>
+      <button class="btn btn-primary" onclick="switchProfileTab('services')">Book a session</button>
+      <button class="btn btn-ghost">Message</button>
+    </div>`;
+  // Reset tab
+  switchProfileTab('services');
+  renderSvcGrid('all');
+  renderOverview();
+  renderFaq();
+  renderReviews();
+  // Show
+  document.getElementById('page-home').classList.remove('active');
+  document.getElementById('page-profile').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── SERVICE GRID ── */
+function renderSvcGrid(type) {
+  const c = CREATORS[activeCreatorId];
+  if(!c) return;
+  const filtered = type === 'all' ? c.services : c.services.filter(s => s.type === type);
+  const typeLabel = {live:'🟢 Live',recorded:'🎥 Recorded',digital:'📦 Digital',group:'👥 Group',async:'📝 Async'};
+  document.getElementById('svcGrid').innerHTML = filtered.map(s=>`
+    <div class="svc-card">
+      ${s.popular?'<div class="popular-badge">Popular</div>':''}
+      <div class="svc-type-badge ${s.type}">${typeLabel[s.type]||s.type}</div>
+      <div class="svc-icon-wrap">${s.icon}</div>
+      <h3>${s.title}</h3>
+      <p>${s.desc}</p>
+      <div class="svc-details">${s.details.map(d=>`<div class="svc-detail">${d}</div>`).join('')}</div>
+      <div class="svc-footer">
+        <div class="svc-price"><strong>${s.price}</strong><span>${s.per}</span></div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="svc-rating">${s.rating} (${s.ratingCount})</span>
+          <button class="btn btn-primary btn-sm">Book</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+document.getElementById('svcFilter').addEventListener('click', e => {
+  const btn = e.target.closest('.svc-filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.svc-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSvcGrid(btn.dataset.type);
+});
+
+/* ── PROFILE TABS ── */
+function switchProfileTab(id) {
+  const tabs = ['services','overview','faq','reviews'];
+  document.querySelectorAll('.ptab-btn').forEach((b,i) => b.classList.toggle('active', tabs[i]===id));
+  document.querySelectorAll('.ptab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('ptab-'+id).classList.add('active');
+}
+
+function renderOverview() {
+  const c = CREATORS[activeCreatorId];
+  if(!c) return;
+  document.getElementById('overviewContent').innerHTML = `
+    <div>
+      <div class="overview-card">
+        <h3>Expertise</h3>
+        <div class="exp-tags">${c.expertise.map(e=>`<span class="exp-tag">${e}</span>`).join('')}</div>
+      </div>
+      <div class="overview-card">
+        <h3>Background</h3>
+        <p style="font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:14px">${c.bio}</p>
+        <div class="ach-list">${c.achievements.map(a=>`<div class="ach-item"><div class="ach-icon">${a.icon}</div><div><strong>${a.title}</strong><span>${a.desc}</span></div></div>`).join('')}</div>
+      </div>
+      <div class="overview-card">
+        <h3>Notable Clients</h3>
+        <div class="client-logos">${c.clients.map(cl=>`<div class="client-logo">${cl}</div>`).join('')}</div>
+      </div>
+    </div>
+    <div>
+      <div class="overview-card">
+        <h3>Languages</h3>
+        <div class="lang-pills">${c.langs.map(l=>`<span class="lang-pill">${l}</span>`).join('')}</div>
+      </div>
+      <div class="overview-card">
+        <h3>Availability</h3>
+        <div class="avail-list">${c.avail.map(a=>`<div class="avail-row"><span>${a.day}</span><span>${a.time}</span></div>`).join('')}</div>
+      </div>
+      <div class="overview-card" style="background:var(--bg)">
+        <h3>Response Time</h3>
+        <p class="response-time">${c.response}</p>
+        <button class="btn btn-primary" style="width:100%" onclick="switchProfileTab('services')">Book a session →</button>
+      </div>
+    </div>`;
+}
+
+function renderFaq() {
+  const c = CREATORS[activeCreatorId];
+  if(!c) return;
+  document.getElementById('faqContent').innerHTML = c.faqs.map(f=>`
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><strong>${f.q}</strong><div class="faq-toggle">+</div></div>
+      <div class="faq-a"><p>${f.a}</p></div>
+    </div>`).join('');
+}
+
+function renderReviews() {
+  const c = CREATORS[activeCreatorId];
+  if(!c) return;
+  const bars = c.ratingBars;
+  const total = bars.reduce((a,b)=>a+b,0);
+  document.getElementById('reviewsContent').innerHTML = `
+    <div class="rev-summary">
+      <div class="rev-stars">⭐⭐⭐⭐⭐</div>
+      <div class="rev-big">${c.rating}</div>
+      <div class="rev-count">${c.ratingCount} reviews</div>
+      <div class="rev-bars">${[5,4,3,2,1].map((s,i)=>`<div class="rev-bar-row"><span>${s}★</span><div class="rev-bar-bg"><div class="rev-bar-fill" style="width:${total?Math.round(bars[i]/total*100):0}%"></div></div><span>${bars[i]}</span></div>`).join('')}</div>
+    </div>
+    <div class="reviews-list">${c.reviewsData.map(r=>`
+      <div class="rev-card">
+        <div class="rev-header">
+          <div class="rev-user">
+            <div class="rev-avatar" style="background:${r.color}">${r.initials}</div>
+            <div><strong>${r.name}</strong><span>${r.role}</span></div>
+          </div>
+          <div class="rev-meta">
+            <div class="rev-stars">${'⭐'.repeat(r.stars)}</div>
+            <div class="rev-date">${r.date}</div>
+          </div>
+        </div>
+        <p>${r.text}</p>
+        <span class="rev-service">Purchased: ${r.service}</span>
+      </div>`).join('')}
+    </div>`;
+}
+
+/* ── SCROLL REVEAL ── */
+const revealEls = Array.from(document.querySelectorAll('.reveal'));
+function revealAll() {
+  revealEls.forEach(el => {
+    const r = el.getBoundingClientRect();
+    if(r.top < window.innerHeight - 40) el.classList.add('on');
+  });
+}
+if('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }});
+  }, {threshold:0.08,rootMargin:'0px 0px -5% 0px'});
+  revealEls.forEach(el => io.observe(el));
+} else {
+  window.addEventListener('scroll', revealAll, {passive:true});
+}
+window.addEventListener('load', () => { calcUpdate(); revealAll(); });
+</script>
+</body>
+</html>
